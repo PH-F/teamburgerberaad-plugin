@@ -3,7 +3,7 @@
 Plugin Name: teamburgerberaad-plugin
 Plugin URI: https://github.com/PH-F/teamburgerberaad-plugin
 Description: 2 extra posttypes.
-Version: 1.0.0
+Version: 1.0.3
 Author: @PH-F
 Author URI: https://github.com/PH-F
 License: MIT
@@ -397,11 +397,32 @@ if (!function_exists('projects')) {
             $id = $post->ID;
             $title = $post->post_title;
             $url = get_permalink($post->ID);
-            $thumbnail = get_the_post_thumbnail_url($post->ID, 'thumbnail');
+            $thumbnail = get_the_post_thumbnail_url($post->ID, 'large');
             $city = get_post_meta($post->ID, '_city', true);
             $teaser = get_the_excerpt($post->ID);
 
+
+
+
             $projects.= '
+                <style>
+                .elementor-grid-3 .elementor-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+                </style>
+                <script>
+                setTimeout(function(){
+                    var max=0;
+                    jQuery(".elementor-post__text").each(function(){
+                        if(jQuery(this).height() > max){
+                            max = jQuery(this).height();
+                        }
+                    });
+                    jQuery(".elementor-post__text").each(function(){
+                        jQuery(this).height(max);
+                    });
+                },1000);
+                </script>
 				<article class="elementor-post elementor-grid-item post-892 post type-post status-publish format-standard has-post-thumbnail hentry category-expertise tag-riejanne">
                 <div class="elementor-post__card" style="border-color: #273998;border-width: 3px;border-radius: 5px;border-style: solid;">
                     <a class="elementor-post__thumbnail__link" href="' . $url . '" tabindex="-1">
